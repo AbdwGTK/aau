@@ -1,4 +1,4 @@
-import { Skeleton } from "@/Components/ui/skeleton";
+import { Skeleton } from "@/Components/UI/skeleton";
 import { nanoid } from "nanoid";
 
 export default function Loader() {
