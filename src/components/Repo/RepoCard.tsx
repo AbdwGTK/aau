@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, User } from "lucide-react";
+import React from "react";
 
 type Owner = {
   login: string;
@@ -17,7 +18,7 @@ export type RepoCardProps = {
   topics?: string[];
 };
 
-export function RepoCard({
+export const RepoCard = React.memo(function RepoCard({
   name,
   description,
   stargazers_count,
@@ -85,6 +86,6 @@ export function RepoCard({
       </CardContent>
     </Card>
   );
-}
+});
 
 export default RepoCard;

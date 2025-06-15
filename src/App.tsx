@@ -4,12 +4,12 @@ import RepoList from "@/components/Repo/RepoList";
 import Loader from "@/components/Loader";
 import ErrorState from "@/components/ErrorState";
 import EmptyState from "@/components/EmptyState";
-import { Button } from "@/components/ui/button";
 import Header from "./components/Header";
 import { useThemeStore } from "./store/useThemeStore";
 import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
-export default function App() {
+export default function RepositoryExplorer() {
   const { q, repos, loading, error, hasMore, setQuery, search, loadMore } =
     useRepoStore();
 
@@ -20,8 +20,19 @@ export default function App() {
     setTheme(t);
   }, [setTheme]);
 
+  const { ref: loadMoreRef, inView } = useInView({
+    threshold: 0,
+    rootMargin: "100px",
+  });
+
+  useEffect(() => {
+    if (inView && hasMore && !loading && !error) {
+      loadMore();
+    }
+  }, [inView, hasMore, loading, error, loadMore]);
+
   return (
-    <div className="flex flex-col min-h-screen max-w-screen px-4 bg-background text-foreground transition-colors">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors">
       <header className="py-8 sm:py-10">
         <div className="max-w-2xl mx-auto w-full px-2 sm:px-4">
           <Header />
@@ -37,24 +48,24 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col items-center ">
+      <main className="flex-1 flex flex-col items-center w-full">
         <div
           className={`
-            max-w-6xl px-2 sm:px-4
+            w-full max-w-6xl px-2 sm:px-4
             flex flex-col
             transition-all
           `}
         >
-          {loading && <Loader />}
-          {!loading && error && <ErrorState message={error} />}
-          {!loading && !error && repos.length === 0 && <EmptyState />}
-          {!loading && !error && repos.length > 0 && <RepoList repos={repos} />}
-
-          {!loading && !error && repos.length > 0 && hasMore && (
-            <div className="flex justify-center my-8 sm:my-10">
-              <Button onClick={loadMore} size="lg" className="font-medium">
-                Load more
-              </Button>
+          {error && <ErrorState message={error} />}
+          {!error && repos.length === 0 && !loading && <EmptyState />}
+          <RepoList repos={repos} />
+          {repos.length === 0 && loading && <Loader />}
+          {repos.length > 0 && hasMore && (
+            <div
+              ref={loadMoreRef}
+              className="flex justify-center my-8 sm:my-10"
+            >
+              {loading && <Loader />}
             </div>
           )}
         </div>

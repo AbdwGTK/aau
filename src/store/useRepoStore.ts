@@ -56,27 +56,32 @@ export const useRepoStore = create<RepoStore>()(
           }
 
           set({ loading: true, error: null });
+
           try {
             const perPage = get().perPage;
-            const { repos, totalCount, hasMore } = await searchRepositories({
+            const {
+              repos: newRepos,
+              totalCount,
+              hasMore,
+            } = await searchRepositories({
               q: query,
               page,
               perPage,
             });
-            set({
+
+            set((state) => ({
               q: query,
-              repos,
+              repos: page === 1 ? newRepos : [...state.repos, ...newRepos],
               totalCount,
               page,
               hasMore,
               loading: false,
               error: null,
-            });
+            }));
           } catch (e: any) {
             set({
               error: e.message || "Failed to fetch repositories",
               loading: false,
-              repos: [],
               hasMore: false,
             });
           }
@@ -100,6 +105,7 @@ export const useRepoStore = create<RepoStore>()(
                 page: nextPage,
                 perPage,
               });
+
             set({
               repos: [...repos, ...moreRepos],
               page: nextPage,
