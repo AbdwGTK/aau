@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { RepoCardProps } from "@/Components/Repo/RepoCard";
+
+import type { RepoCardProps } from "@/Types";
 
 function getGithubHeaders(): HeadersInit {
   const headers: HeadersInit = {

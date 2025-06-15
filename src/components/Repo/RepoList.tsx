@@ -1,4 +1,5 @@
-import RepoCard, { type RepoCardProps } from "@/Components/Repo/RepoCard";
+import type { RepoCardProps } from "@/Types";
+import RepoCard from "@/Components/Repo/RepoCard";
 
 export default function RepoList({ repos }: { repos: RepoCardProps[] }) {
   if (!repos.length)
