@@ -1,4 +1,4 @@
-import { useRepoStore } from "@/store/useRepoStore";
+import { useRepoStore } from "@/Store/useRepoStore";
 import SearchInput from "@/Components/SearchInput";
 import RepoList from "@/Components/Repo/RepoList";
 import Loader from "@/Components/Loader";
@@ -6,7 +6,7 @@ import ErrorState from "@/Components/ErrorState";
 import EmptyState from "@/Components/EmptyState";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useThemeStore } from "@/store/useThemeStore";
+import { useThemeStore } from "@/Store/useThemeStore";
 import Header from "@/Components/Header";
 
 export default function RepositoryExplorer() {
