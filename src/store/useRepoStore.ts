@@ -86,7 +86,6 @@ export const useRepoStore = create<RepoStore>()(
           const { q, page, perPage, repos, hasMore, loading } = get();
           if (!hasMore || loading) return;
 
-          // Prevent API call if query is empty
           if (!q.trim()) {
             set({ loading: false });
             return;

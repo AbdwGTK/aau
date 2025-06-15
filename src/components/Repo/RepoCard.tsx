@@ -27,51 +27,55 @@ export function RepoCard({
   topics = [],
 }: RepoCardProps) {
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle>
+    <Card
+      className="mb-6 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-800/40
+      bg-white/90 dark:bg-zinc-900/60 transition-all duration-200
+      hover:shadow-2xl hover:scale-[1.015] w-full"
+    >
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg font-semibold group flex flex-wrap items-center gap-2">
           <a
             href={html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline text-blue-600"
+            className="hover:underline text-blue-700 dark:text-blue-400 transition-colors break-all"
           >
             {name}
           </a>
+          <span className="ml-2 px-2 py-0.5 text-xs font-mono rounded bg-zinc-100 dark:bg-zinc-800/60 text-zinc-500 dark:text-zinc-400 shadow-inner">
+            {language ?? "—"}
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-4 mb-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-3">
           <a href={owner.html_url} target="_blank" rel="noopener noreferrer">
             <img
               src={owner.avatar_url}
               alt={owner.login}
-              className="w-10 h-10 rounded-full border"
+              className="w-10 h-10 rounded-full border-2 border-zinc-200 dark:border-zinc-700 shadow-sm"
             />
           </a>
-          <span className="flex items-center text-sm text-gray-600">
-            <User className="w-4 h-4 mr-1" />
+          <span className="flex items-center text-sm text-zinc-800 dark:text-zinc-300 font-medium break-all">
+            <User className="w-4 h-4 mr-1 opacity-70" />
             {owner.login}
           </span>
-          <span className="flex items-center text-sm text-yellow-600 ml-3">
+          <span className="flex items-center text-sm text-yellow-600 dark:text-yellow-400 ml-0 sm:ml-3 font-medium">
             <Star className="w-4 h-4 mr-1" />
-            {stargazers_count}
+            {Intl.NumberFormat().format(stargazers_count)}
           </span>
-          {language && (
-            <span className="ml-3 text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-              {language}
-            </span>
-          )}
         </div>
-        <p className="text-gray-700 dark:text-gray-300 text-sm mb-1">
-          {description || <i>No description provided.</i>}
+        <p className="text-zinc-800 dark:text-zinc-300 text-[15px] mb-2 min-h-[32px] break-words">
+          {description || (
+            <i className="opacity-60">No description provided.</i>
+          )}
         </p>
         {topics.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap w-fit gap-2 mt-2">
             {topics.map((topic) => (
               <span
                 key={topic}
-                className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded"
+                className="text-xs bg-blue-100/70 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 px-2 py-0.5 rounded-full font-medium shadow-sm border border-blue-200 dark:border-blue-800 transition-colors break-all"
               >
                 {topic}
               </span>
