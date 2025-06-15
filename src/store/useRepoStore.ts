@@ -40,9 +40,23 @@ export const useRepoStore = create<RepoStore>()(
         setQuery: (q: string) => set({ q }),
 
         search: async (q, page = 1) => {
+          const query = (q ?? get().q).trim();
+
+          if (!query) {
+            set({
+              q: "",
+              repos: [],
+              totalCount: 0,
+              page: 1,
+              hasMore: false,
+              loading: false,
+              error: null,
+            });
+            return;
+          }
+
           set({ loading: true, error: null });
           try {
-            const query = q ?? get().q;
             const perPage = get().perPage;
             const { repos, totalCount, hasMore } = await searchRepositories({
               q: query,
@@ -71,6 +85,13 @@ export const useRepoStore = create<RepoStore>()(
         loadMore: async () => {
           const { q, page, perPage, repos, hasMore, loading } = get();
           if (!hasMore || loading) return;
+
+          // Prevent API call if query is empty
+          if (!q.trim()) {
+            set({ loading: false });
+            return;
+          }
+
           set({ loading: true, error: null });
           try {
             const nextPage = page + 1;
