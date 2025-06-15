@@ -1,54 +1,86 @@
-# React + TypeScript + Vite
+# Repository Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, performant GitHub repository explorer built with React, TypeScript, Zustand. 
+Quickly search, browse, and discover GitHub repositories with live search, infinite scrolling.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Instant Search**  
+  Live, debounced search for GitHub repositories.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Repository Cards**  
+  Beautiful cards show repo name, owner, avatar, language, description, topics, and stargazers.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Infinite Scrolling**  
+  Seamless loading of more results as you scroll (intersection observer).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Error & Empty States**  
+  Polished UI for loading, errors, and no-results.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Responsive & Themed UI**  
+  Looks great on all devices, with light/dark mode support.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+
+
+---
+
+## 🛠️ Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/YOUR_USERNAME/repository-explorer.git
+   cd repository-explorer
+   ```
+
+2. **Install dependencies (use Yarn):**
+
+   ```sh
+   yarn
+   ```
+
+3. **(Optional) Configure GitHub API access:**  
+   By default, unauthenticated requests are used (subject to rate limiting).  
+   To increase rate limits, create a `.env.local` file:
+
+   ```
+   VITE_GITHUB_TOKEN=your_github_personal_token
+   ```
+
+
+4. **Run the development server:**
+
+   ```sh
+   yarn dev
+   ```
+
+5. **Open in your browser:**  
+   Visit [http://localhost:3000](http://localhost:3000) or the printed URL.
+
+---
+
+## 🧪 Tech Stack
+
+- **React** – Component UI
+- **TypeScript** – Type safety
+- **Zustand** – State management
+- **Tailwind CSS** (or similar) – Styling (swap for your preferred method)
+- **Lucide React** – Icon set
+- **React Intersection Observer** – Infinite scroll
+
+
+---
+
+## 🤝 Contributions
+
+Contributions, issues, and feature requests are welcome!
+
+---
+
+## 📝 License
+
+MIT
+
+---
