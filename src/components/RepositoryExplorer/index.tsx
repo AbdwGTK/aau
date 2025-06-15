@@ -1,13 +1,13 @@
 import { useRepoStore } from "@/store/useRepoStore";
-import SearchInput from "@/components/SearchInput";
-import RepoList from "@/components/Repo/RepoList";
-import Loader from "@/components/Loader";
-import ErrorState from "@/components/ErrorState";
-import EmptyState from "@/components/EmptyState";
+import SearchInput from "@/Components/SearchInput";
+import RepoList from "@/Components/Repo/RepoList";
+import Loader from "@/Components/Loader";
+import ErrorState from "@/Components/ErrorState";
+import EmptyState from "@/Components/EmptyState";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useThemeStore } from "@/store/useThemeStore";
-import Header from "@/components/Header";
+import Header from "@/Components/Header";
 
 export default function RepositoryExplorer() {
   const { q, repos, loading, error, hasMore, setQuery, search, loadMore } =

@@ -1,4 +1,4 @@
-import RepositoryExplorer from "@/components/RepositoryExplorer";
+import RepositoryExplorer from "@/Components/RepositoryExplorer";
 
 const App = () => {
   return <RepositoryExplorer />;
