@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import { useRepoStore } from "@/store/useRepoStore";
+import SearchInput from "@/components/SearchInput";
+import RepoList from "@/components/Repo/RepoList";
+import Loader from "@/components/Loader";
+import ErrorState from "@/components/ErrorState";
+import EmptyState from "@/components/EmptyState";
+import { Button } from "@/components/ui/button";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { q, repos, loading, error, hasMore, setQuery, search, loadMore } =
+    useRepoStore();
+
+  useEffect(() => {
+    if (!q) search("react");
+    // eslint-disable-next-line
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="max-w-2xl mx-auto py-10">
+      <SearchInput
+        value={q}
+        onChange={(val) => {
+          setQuery(val);
+          search(val, 1);
+        }}
+        placeholder="Search GitHub repositories..."
+        debounceMs={500}
+      />
+
+      {loading && <Loader />}
+
+      {error && <ErrorState message={error} />}
+
+      {!loading && !error && repos.length === 0 && <EmptyState />}
+
+      {!loading && !error && repos.length > 0 && <RepoList repos={repos} />}
+
+      {!loading && hasMore && (
+        <div className="flex justify-center my-6">
+          <Button onClick={loadMore}>Load more</Button>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
